@@ -1,5 +1,5 @@
 #pragma once
-
+#include SONG_LIST_H
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PLANCK_SOUND)
     // #define STARTUP_SONG SONG(NO_SOUND)
@@ -8,6 +8,8 @@
                                   SONG(COLEMAK_SOUND), \
                                   SONG(DVORAK_SOUND) \
                                 }
+    #define MUSIC_ON_SONG SONG(RICK_ROLL)
+    #define MUSIC_OFF_SONG SONG(VICTORY_FANFARE_SHORT)
 #endif
 
 /*
@@ -36,4 +38,3 @@
 
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
-
