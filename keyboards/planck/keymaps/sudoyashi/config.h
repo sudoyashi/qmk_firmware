@@ -1,5 +1,5 @@
 #pragma once
-#include SONG_LIST_H
+#include "song_list.h"
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PLANCK_SOUND)
     // #define STARTUP_SONG SONG(NO_SOUND)
