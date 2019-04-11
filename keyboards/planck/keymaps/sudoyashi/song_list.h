@@ -130,7 +130,7 @@
     S__NOTE(_REST),  \
     E__NOTE(_E7  ),
 
-#define PLOVER_SOUND \
+/* #define PLOVER_SOUND \
     E__NOTE(_GS6 ),  \
     E__NOTE(_A6  ),  \
     S__NOTE(_REST),  \
@@ -145,6 +145,7 @@
     ED_NOTE(_A7  ),  \
     S__NOTE(_REST),  \
     ED_NOTE(_E7  ),
+*/
 
 #define MUSIC_ON_SOUND \
     E__NOTE(_A5 ),        \
