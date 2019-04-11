@@ -1,12 +1,12 @@
 #pragma once
 #include "song_list.h"
 #ifdef AUDIO_ENABLE
-      #define STARTUP_SONG SONG(FF_PRELUDE)
+      #define STARTUP_SONG SONG(ALL_STAR)
     // #define STARTUP_SONG SONG(NO_SOUND)
 
-    #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
-                                  SONG(COLEMAK_SOUND), \
-                                  SONG(DVORAK_SOUND) \
+    #define DEFAULT_LAYER_SONGS { SONG(CABBAGE_SONG), \
+                                  SONG(VICTORY_FANFARE_SHORT), \
+                                  SONG(ZELDA_PUZZLE) \
                                 }
     #define MUSIC_ON_SONG SONG(RICK_ROLL)
     #define MUSIC_OFF_SONG SONG(VICTORY_FANFARE_SHORT)
