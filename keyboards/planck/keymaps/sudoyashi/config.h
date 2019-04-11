@@ -5,7 +5,7 @@
     // #define STARTUP_SONG SONG(NO_SOUND)
 
     #define DEFAULT_LAYER_SONGS { SONG(SONIC_RING), \
-                                  SONG(NIER_AMUSEMENT_PARK), \
+                                  SONG(COIN_SOUND), \
                                   SONG(ZELDA_TREASURE) \
                                 }
     #define MUSIC_ON_SONG SONG(VIOLIN_SOUND)

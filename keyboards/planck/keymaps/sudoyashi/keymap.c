@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef AUDIO_ENABLE
   float tone_startup[][2]    = SONG(SONIC_RING);
   float tone_qwerty[][2]     = SONG(ZELDA_TREASURE);
-  float tone_colemak[][2]    = SONG(FF_PRELUDE);
+  float tone_colemak[][2]    = SONG(COIN_SOUND);
   // float plover_song[][2]     = SONG(PLOVER_SOUND);
   // float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
   float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
