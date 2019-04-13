@@ -13,7 +13,7 @@
 #endif
 
 #define MIDI_BASIC
-
+#define TAPPING_TERM 200
 
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4

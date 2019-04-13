@@ -24,11 +24,12 @@
 */
 
 #include QMK_KEYBOARD_H
+#include "tap.h"
 #include "muse.h"
 
 extern keymap_config_t keymap_config;
 
-enum planck_layers {
+enum sudoyashi_layers {
   _QWERTY,
   _COLEMAK,
   _LOWER,
@@ -36,7 +37,7 @@ enum planck_layers {
   _ADJUST
 };
 
-enum planck_keycodes {
+enum sudoyashi_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
   BACKLIT,
@@ -60,9 +61,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_QWERTY] = LAYOUT_planck_grid(
       KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-      KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+      KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    CT_SCLN, KC_QUOT,
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
-      KC_LCTL, KC_F4, KC_LGUI,   KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+      KC_LCTL, KC_F4, KC_LGUI,   KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, TD_DN_PGDN, TD_UP_PGUP,   KC_RGHT
   ),
 
   /* Colemak
@@ -75,14 +76,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * | Ctrl |  F4  | LGUI | Alt  |Lower |    Space    |Raise | Left | Down | Up   |Right |
    * `-----------------------------------------------------------------------------------'
+
+   for tap dance:
+   TD_DN_PGDN
+   TD_UP_PGUP
+
+
    */
 
   [_COLEMAK] = LAYOUT_planck_grid(
       KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
       KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-      KC_LCTL, KC_F4, KC_LGUI, KC_LALT , LOWER,  KC_SPC,  KC_SPC,    RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
+      KC_LCTL, KC_F4, KC_LGUI, KC_LALT , LOWER,  KC_SPC,  KC_SPC,    RAISE,   KC_LEFT, _______, _______, KC_RIGHT
   ),
+
+
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
