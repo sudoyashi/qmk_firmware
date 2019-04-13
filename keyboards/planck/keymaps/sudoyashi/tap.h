@@ -10,11 +10,8 @@ typedef struct {
     TD_UP_PGUP = 0,
     TD_DN_PGDN = 1,
     CT_SE = 2,
-    CT_SCLN,
-    CT_EGG,
-    CT_FLSH,
-    X_TAP_DANCE
-
+    CT_SCLN = 3,
+    TD_FULL = 4
   };
 
   void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
@@ -39,5 +36,6 @@ typedef struct {
   qk_tap_dance_action_t tap_dance_actions[] = {
    [TD_UP_PGUP]  = ACTION_TAP_DANCE_DOUBLE(KC_UP, KC_PGUP),
    [TD_DN_PGDN]  = ACTION_TAP_DANCE_DOUBLE(KC_DOWN, KC_PGDN),
-   [CT_SCLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset)
+   [CT_SCLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset),
+   [TD_FULL] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_F11)
   };
