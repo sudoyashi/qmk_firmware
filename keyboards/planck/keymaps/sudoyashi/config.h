@@ -4,11 +4,9 @@
       #define STARTUP_SONG SONG(SONIC_RING)
     // #define STARTUP_SONG SONG(NO_SOUND)
 
-    #define DEFAULT_LAYER_SONGS { SONG(SONIC_RING), \
-                                  SONG(ZELDA_TREASURE), \
+    #define DEFAULT_LAYER_SONGS { SONG(ZELDA_TREASURE), \
+                                  SONG(SONIC_RING), \
                                 }
-    #define MUSIC_ON_SONG SONG(VIOLIN_SOUND)
-    #define MUSIC_OFF_SONG SONG(VICTORY_FANFARE_SHORT)
 #endif
 
 #define MIDI_BASIC
