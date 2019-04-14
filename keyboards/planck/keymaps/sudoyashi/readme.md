@@ -4,7 +4,6 @@ A Colemak planck.
 
 
 ## Future Plans
-
 -I want to slowly expand towards adding more songs on the list and add the functionality to this keyboard. 
 -I would also like to find more comfortable ways to add parentheses, brackets, etc. for better programming and less mess-ups. 
 -Macros would be great for common keyboard shortcuts like Ctrl+Alt+Del or Ctrl+F
