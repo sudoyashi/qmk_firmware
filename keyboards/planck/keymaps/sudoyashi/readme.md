@@ -4,12 +4,10 @@ A Colemak planck.
 
 
 ## Future Plans
+- I want to slowly expand towards adding more songs on the list and add the functionality to this keyboard. I would also like to find more comfortable ways to add parentheses, brackets, etc. for better programming and less mess-ups. 
+- Macros would be great for common keyboard shortcuts like Ctrl+Alt+Del or Ctrl+F
 
--I want to slowly expand towards adding more songs on the list and add the functionality to this keyboard. 
--I would also like to find more comfortable ways to add parentheses, brackets, etc. for better programming and less mess-ups. 
--Macros would be great for common keyboard shortcuts like Ctrl+Alt+Del or Ctrl+F
-
-April 13, 2019: Currently working on making a solid foundational colemak keyboard layout for the planck. This is intended for general improvements for navigation and quality of life of for PC users. Sorry Mac users, I have long left my MacBook :(
+**April 13, 2019**: Currently working on making a solid foundational colemak keyboard layout for the planck. This is intended for general improvements for navigation and quality of life of for PC users. Sorry Mac users, I have long left my MacBook :(
 
 ## Current Features
 
