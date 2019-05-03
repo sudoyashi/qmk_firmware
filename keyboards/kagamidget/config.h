@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Eucalyn
+Copyright 2019 yynmt
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,24 +18,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "config_common.h"
-#include <serial_config.h>
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Eucalyn
-#define PRODUCT         Mint60
-#define DESCRIPTION     A row staggered split keyboard
-
-#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 100
-
-#define USE_SERIAL
+#define MANUFACTURER    yynmt
+#define PRODUCT         KagaMidget
+#define DESCRIPTION     48 keys tiny keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 12
 
 /*
  * Keyboard Matrix Assignments
@@ -47,16 +41,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { D4, B3, B1, F7, B2, B6, F6, F5 }
+#define MATRIX_ROW_PINS { D1, D0, F4, F5 }
+#define MATRIX_COL_PINS { D4, C6, D7, E6, B4, B5, B6, B2, B3, B1, F7, F6 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL*/
+/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
 
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
+
+#define RGB_DI_PIN D3
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 4
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
@@ -109,6 +107,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
+/* key combination for magic key command */
+/*#define IS_COMMAND() ( \
+    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
+)*/
+
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS  true
@@ -144,16 +147,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAGIC_KEY_EEPROM         E
 //#define MAGIC_KEY_NKRO           N
 //#define MAGIC_KEY_SLEEP_LED      Z
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D3
-
-#define RGBLED_NUM 8
-
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-
-#define RGBLIGHT_ANIMATIONS
 
 /*
  * Feature disable options
@@ -223,3 +216,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LCD_E_PIN        1            //< pin  for Enable line
 #endif
 */
+
+/* Bootmagic Lite key configuration */
+// #define BOOTMAGIC_LITE_ROW 0
+// #define BOOTMAGIC_LITE_COLUMN 0
