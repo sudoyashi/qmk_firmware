@@ -12,7 +12,7 @@ enum layers {
 };
 enum custom_keycodes {
   COLEMAK = SAFE_RANGE,
-  QWERTY
+  QWERTY,
   LOWER,
   RAISE,
   ADJUST,
