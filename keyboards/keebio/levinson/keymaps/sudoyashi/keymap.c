@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
-
+#include "tap.h"
 extern keymap_config_t keymap_config;
-
 
 enum layers {
   _COLEMAK,
@@ -10,6 +9,7 @@ enum layers {
   _RAISE,
   _ADJUST
 };
+
 enum custom_keycodes {
   COLEMAK = SAFE_RANGE,
   QWERTY,
