@@ -13,14 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Added Tap Dance features: ESC/F11; ;/:
- *
- *
- *
- *
- *
- *
- *
 */
 #include QMK_KEYBOARD_H
 #include "tap.h"
@@ -38,7 +30,6 @@ enum sudoyashi_layers {
 enum sudoyashi_keycodes {
   COLEMAK = SAFE_RANGE,
   QWERTY,
-  BACKLIT,
 };
 
 #define LOWER MO(_LOWER)
@@ -117,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT_planck_grid(
     KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,     KC_9,    KC_0,    KC_BSPC,
-    KC_DEL,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, _______, _______, _______,
+    KC_DEL,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINUS, KC_EQUAL, KC_HOME, KC_PGUP, _______,
     KC_LSHIFT,KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_BRID, KC_BRIU,  KC_END,  KC_PGDN, _______,
     _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
@@ -158,7 +149,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        print("mode just switched to qwerty and this is a huge string\n");
+        print("QWERTY\n");
         set_single_persistent_default_layer(_QWERTY);
       }
       return false;
@@ -170,25 +161,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case BACKLIT:
-      if (record->event.pressed) {
-        register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
-          backlight_step();
-        #endif
-        #ifdef KEYBOARD_planck_rev5
-          PORTE &= ~(1<<6);
-        #endif
-      } else {
-        unregister_code(KC_RSFT);
-        #ifdef KEYBOARD_planck_rev5
-          PORTE |= (1<<6);
-        #endif
-      }
-      return false;
-      break;
   }
-
   return true;
 
 }
