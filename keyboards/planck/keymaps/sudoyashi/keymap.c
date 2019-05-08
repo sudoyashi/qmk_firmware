@@ -172,6 +172,15 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
+void encoder_update(bool clockwise) {
+  if (clockwise) {
+    register_code(KC_VOLU);
+    unregister_code(KC_VOLU);
+  } else {
+    register_code(KC_VOLD);
+    unregister_code(KC_VOLD);
+  }
+}
 
 bool music_mask_user(uint16_t keycode) {
   switch (keycode) {
