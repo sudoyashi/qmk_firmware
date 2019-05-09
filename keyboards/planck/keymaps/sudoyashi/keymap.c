@@ -37,24 +37,6 @@ enum sudoyashi_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  /* Qwerty
-   * ,-----------------------------------------------------------------------------------.
-   * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
-   * |------+------+------+------+------+-------------+------+------+------+------+------|
-   * | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '   |
-   * |------+------+------+------+------+------|------+------+------+------+------+------|
-   * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
-   * |------------+------+------+------+------+------+------+------+-------+------+------|
-   * | Ctrl | F4   | Alt  | Lower| GUI  |    Space    |Raise |Left|Down+PDn|Up+PUp|Right |
-   * `-----------------------------------------------------------------------------------'
-   */
-  [_QWERTY] = LAYOUT_planck_grid(
-      KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-      KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
-      KC_LCTL, KC_LGUI, KC_LALT, KC_F4 , LOWER,   KC_SPC,  KC_SPC,   RAISE,   KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT
-  ),
-
   /* Colemak
    * ,-----------------------------------------------------------------------------------.
    * | Esc  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
@@ -71,7 +53,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       TD(TD_FULL), KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    TD(CT_SCLN), KC_BSPC,
       KC_TAB,      KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,        KC_QUOT,
       KC_LSFT,     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,     KC_ENT,
-      KC_LCTL,     KC_LGUI, KC_LALT, KC_F4 ,  LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,       KC_RIGHT
+      TD(TD_CTCV), KC_LGUI, KC_LALT, KC_F4 ,  LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,       KC_RIGHT
+  ),
+
+  /* Qwerty
+   * ,-----------------------------------------------------------------------------------.
+   * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+   * |------+------+------+------+------+-------------+------+------+------+------+------|
+   * | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '   |
+   * |------+------+------+------+------+------|------+------+------+------+------+------|
+   * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+   * |------------+------+------+------+------+------+------+------+-------+------+------|
+   * | Ctrl | F4   | Alt  | Lower| GUI  |    Space    |Raise |Left|Down+PDn|Up+PUp|Right |
+   * `-----------------------------------------------------------------------------------'
+   */
+  [_QWERTY] = LAYOUT_planck_grid(
+      KC_ESC,      KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+      KC_TAB,      KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+      KC_LSFT,     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
+      TD(TD_CTCV), KC_LGUI, KC_LALT, KC_F4 , LOWER,   KC_SPC,  KC_SPC,   RAISE,   KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT
   ),
 
 
@@ -147,13 +147,6 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        print("QWERTY\n");
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
     case COLEMAK:
       if (record->event.pressed) {
         print("C O L E M A K L Y F E\n");
@@ -162,6 +155,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
   }
+    case QWERTY:
+      if (record->event.pressed) {
+        print("QWERTY\n");
+        set_single_persistent_default_layer(_QWERTY);
+      }
+      return false;
+      break;
   return true;
 
 }
