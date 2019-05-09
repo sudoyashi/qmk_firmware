@@ -28,8 +28,8 @@ enum sudoyashi_layers {
 };
 
 enum sudoyashi_keycodes {
-  COLEMAK = SAFE_RANGE,
   QWERTY,
+  COLEMAK = SAFE_RANGE,
 };
 
 #define LOWER MO(_LOWER)
@@ -134,13 +134,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef AUDIO_ENABLE
-  float tone_startup[][2]    = SONG(SONIC_RING);
-  float tone_qwerty[][2]     = SONG(SONIC_RING);
-  float tone_colemak[][2]    = SONG(SONIC_RING);
-  float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
-#endif
-
 uint32_t layer_state_set_user(uint32_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
@@ -149,12 +142,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case COLEMAK:
       if (record->event.pressed) {
-        print("C O L E M A K L Y F E\n");
+        print("COLEMAK\n");
         set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
       break;
-  }
     case QWERTY:
       if (record->event.pressed) {
         print("QWERTY\n");
@@ -162,16 +154,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-  return true;
+    }
+    return true;
+  }
 
-}
-
-bool muse_mode = false;
-uint8_t last_muse_note = 0;
-uint16_t muse_counter = 0;
-uint8_t muse_offset = 70;
-uint16_t muse_tempo = 50;
-
+/*
 void encoder_update(bool clockwise) {
   if (clockwise) {
     register_code(KC_VOLU);
@@ -181,13 +168,4 @@ void encoder_update(bool clockwise) {
     unregister_code(KC_VOLD);
   }
 }
-
-bool music_mask_user(uint16_t keycode) {
-  switch (keycode) {
-    case RAISE:
-    case LOWER:
-      return false;
-    default:
-      return true;
-  }
-}
+*/
