@@ -3,8 +3,9 @@
 
   enum custom_kc {
     CT_SCLN = 0,
-    TD_FULL,
-    COPY_PASTE
+    ENT_ESC,
+    CPPS,
+    CT_FULL
   };
 
 
@@ -30,6 +31,7 @@
   // Declare tap dance actions
   qk_tap_dance_action_t tap_dance_actions[] = {
    [CT_SCLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset),
-   [TD_FULL] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_F11),
-   [COPY_PASTE] = ACTION_TAP_DANCE_DOUBLE(COPY, PASTE)
+   [ENT_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_ENT, KC_ESC),
+   [CPPS] = ACTION_TAP_DANCE_DOUBLE(COPY, PASTE),
+   [CT_FULL] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_F11)
   };
