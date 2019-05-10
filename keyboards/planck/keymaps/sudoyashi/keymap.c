@@ -15,11 +15,11 @@
  *
 */
 #include QMK_KEYBOARD_H
-#include "tap.h"
+#include <sendstring_colemak.h>
 
 extern keymap_config_t keymap_config;
 
-enum sudoyashi_layers {
+enum layers {
   _QWERTY,
   _COLEMAK,
   _LOWER,
@@ -27,33 +27,20 @@ enum sudoyashi_layers {
   _ADJUST
 };
 
-enum sudoyashi_keycodes {
-  COLEMAK = SAFE_RANGE,
+enum keycodes {
   QWERTY,
+  COLEMAK = SAFE_RANGE,
+  COPY,
+  PASTE,
+  M_EMAIL
 };
+
+#include "tap.h"
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-  /* Qwerty
-   * ,-----------------------------------------------------------------------------------.
-   * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
-   * |------+------+------+------+------+-------------+------+------+------+------+------|
-   * | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '   |
-   * |------+------+------+------+------+------|------+------+------+------+------+------|
-   * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
-   * |------------+------+------+------+------+------+------+------+-------+------+------|
-   * | Ctrl | F4   | Alt  | Lower| GUI  |    Space    |Raise |Left|Down+PDn|Up+PUp|Right |
-   * `-----------------------------------------------------------------------------------'
-   */
-  [_QWERTY] = LAYOUT_planck_grid(
-      KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-      KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
-      KC_LCTL, KC_LGUI, KC_LALT, KC_F4 , LOWER,   KC_SPC,  KC_SPC,   RAISE,   KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT
-  ),
 
   /* Colemak
    * ,-----------------------------------------------------------------------------------.
@@ -68,10 +55,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_COLEMAK] = LAYOUT_planck_grid(
-      TD(TD_FULL), KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    TD(CT_SCLN), KC_BSPC,
+      TD(ENT_ESC), KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    TD(CT_SCLN), KC_BSPC,
       KC_TAB,      KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,        KC_QUOT,
       KC_LSFT,     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,     KC_ENT,
-      KC_LCTL,     KC_LGUI, KC_LALT, KC_F4 ,  LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,       KC_RIGHT
+      TD(CT_FULL),     KC_LGUI, KC_LALT, KC_F4 ,  LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,       KC_RIGHT
+  ),
+
+  /* Qwerty
+   * ,-----------------------------------------------------------------------------------.
+   * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+   * |------+------+------+------+------+-------------+------+------+------+------+------|
+   * | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '   |
+   * |------+------+------+------+------+------|------+------+------+------+------+------|
+   * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+   * |------------+------+------+------+------+------+------+------+-------+------+------|
+   * | Ctrl | F4   | Alt  | Lower| GUI  |    Space    |Raise |Left|Down+PDn|Up+PUp|Right |
+   * `-----------------------------------------------------------------------------------'
+   */
+  [_QWERTY] = LAYOUT_planck_grid(
+      TD(ENT_ESC),      KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+      KC_TAB,      KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+      KC_LSFT,     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
+      TD(CT_FULL), KC_LGUI, KC_LALT, KC_F4 , LOWER,   KC_SPC,  KC_SPC,   RAISE,   KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT
   ),
 
 
@@ -81,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Del  | Vol- | Vol+ | Prev | Play | Next |  (   |   )  |  [   |  ]   |      |  |   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |LShift|      |      |     |      |      |  <   |  >   |  {   |   }  | Home | PgUp |
+ * |LShift|      |      |CP+PST|      |      |  <   |  >   |  {   |   }  | Home | PgUp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl | F4   | GUI   | Alt  |     |            |      |      |      |  End  | PgDn |
  * `-----------------------------------------------------------------------------------'
@@ -90,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT_planck_grid(
     KC_TILD,   KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_MINUS, KC_EQUAL, KC_BSPC,
     KC_VOLD,   KC_VOLU, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSTP, KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, _______,  KC_PIPE,
-    KC_LSHIFT, _______, _______, _______, _______, _______, KC_LABK, KC_RABK, KC_LCBR, KC_RCBR, _______,  _______,
+    KC_LSHIFT, _______, M_EMAIL, TD(CPPS), _______, _______, KC_LABK, KC_RABK, KC_LCBR, KC_RCBR, _______,  _______,
     _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
 ),
 
@@ -108,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT_planck_grid(
     KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,     KC_9,    KC_0,    KC_BSPC,
-    KC_DEL,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINUS, KC_EQUAL, KC_HOME, KC_PGUP, _______,
+    KC_DEL,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINUS, KC_EQUAL, KC_HOME, KC_PGUP, KC_BSLS,
     KC_LSHIFT,KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_BRID, KC_BRIU,  KC_END,  KC_PGDN, _______,
     _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
@@ -134,19 +139,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef AUDIO_ENABLE
-  float tone_startup[][2]    = SONG(SONIC_RING);
-  float tone_qwerty[][2]     = SONG(SONIC_RING);
-  float tone_colemak[][2]    = SONG(SONIC_RING);
-  float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
-#endif
-
 uint32_t layer_state_set_user(uint32_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case COLEMAK:
+      if (record->event.pressed) {
+        print("COLEMAK\n");
+        set_single_persistent_default_layer(_COLEMAK);
+      }
+      return false;
+      break;
     case QWERTY:
       if (record->event.pressed) {
         print("QWERTY\n");
@@ -154,30 +159,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case COLEMAK:
+
+    // MACRO -- Ctrl + C, only for windows
+    case COPY:
       if (record->event.pressed) {
-        print("C O L E M A K L Y F E\n");
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
+        //Event happens when COPY_PASTE IS PRESSED
+        SEND_STRING(SS_LCTRL("c"));
+        } else {  //Event happens when COPY IS RELEASED
+          }
       break;
+
+    // MACRO -- Ctrl + V, only for windows
+    case PASTE:
+      if (record->event.pressed) {
+        //Event happens when COPY_PASTE IS PRESSED
+        SEND_STRING(SS_LCTRL("v"));
+        } else {
+          }
+      break;
+
+    // MACRO -- write down email
+    case M_EMAIL:
+      if (record->event.pressed) {
+        SEND_STRING("joshuapdhawaii@gmail.com");
+        } else {
+          }
+    break;
   }
   return true;
-
 }
 
-bool muse_mode = false;
-uint8_t last_muse_note = 0;
-uint16_t muse_counter = 0;
-uint8_t muse_offset = 70;
-uint16_t muse_tempo = 50;
-
-bool music_mask_user(uint16_t keycode) {
-  switch (keycode) {
-    case RAISE:
-    case LOWER:
-      return false;
-    default:
-      return true;
+void encoder_update(bool clockwise) {
+  if (clockwise) {
+    register_code(KC_VOLU);
+    unregister_code(KC_VOLU);
+  } else {
+    register_code(KC_VOLD);
+    unregister_code(KC_VOLD);
   }
 }
