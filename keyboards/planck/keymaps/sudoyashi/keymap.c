@@ -32,7 +32,7 @@ enum keycodes {
   COLEMAK = SAFE_RANGE,
   COPY,
   PASTE,
-  M_EMAIL,
+  M_EMAIL
 };
 
 #include "tap.h"

@@ -1,6 +1,11 @@
 //Tap Dance Declarations
 #include QMK_KEYBOARD_H
 
+typedef struct {
+  bool is_press_action;
+  int state;
+} tap;
+
   enum custom_kc {
     CT_SCLN = 0,
     ENT_ESC,
