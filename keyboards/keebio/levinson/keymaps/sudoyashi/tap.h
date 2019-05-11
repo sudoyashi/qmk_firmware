@@ -35,8 +35,8 @@ typedef struct {
 
   // Declare tap dance actions
   qk_tap_dance_action_t tap_dance_actions[] = {
-   [CT_SCLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset),
-   [ENT_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_ENT, KC_ESC),
    [CPPS] = ACTION_TAP_DANCE_DOUBLE(COPY, PASTE),
+   [ENT_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_ENT, KC_ESC),
+   [CT_SCLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset),
    [CT_FULL] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_F11)
   };

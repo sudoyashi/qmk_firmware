@@ -28,5 +28,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 //RGB Underglow
-#define RGB_DI_PIN
 #define RGBLED_SPLIT 6
