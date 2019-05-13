@@ -64,7 +64,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       TD(CT_FULL), KC_LGUI, KC_LALT, KC_F4 , LOWER,   KC_SPC,  KC_SPC,   RAISE,   KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT
   ),
 
-
 /* Lower
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   -  |  =   | Bksp |
@@ -162,6 +161,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           }
       break;
+  */
 
     // MACRO -- write down email
     case M_EMAIL:
@@ -170,7 +170,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           }
     break;
-  */
+
   }
 
   return true;
