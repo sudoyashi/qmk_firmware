@@ -2,14 +2,12 @@
 
 extern keymap_config_t keymap_config;
 
+#define _QWERTY 0
+#define _COLEMAK 1
+#define _LOWER 3
+#define _RAISE 4
+#define _ADJUST 16
 
-enum layers {
-  _COLEMAK,
-  _QWERTY,
-  _LOWER,
-  _RAISE,
-  _ADJUST
-};
 enum custom_keycodes {
   COLEMAK = SAFE_RANGE,
   QWERTY,
@@ -106,8 +104,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_ortho_4x12( \
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
   KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, KC_HOME, KC_END,  KC_PGUP, KC_PGDN, \
-  _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______ ,KC_LEFT, KC_DOWN,  KC_UP,  KC_RIGHT, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______ \
+  BL_TOGG, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______ ,KC_LEFT, KC_DOWN,  KC_UP,  KC_RIGHT, \
+  BL_STEP, BL_OFF, BL_DEC, BL_INC,    _______ , _______, _______, _______, _______, _______, _______, _______ \
 ),
 
 
@@ -124,13 +122,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] =  LAYOUT_ortho_4x12( \
   RESET,   _______, _______, _______, _______, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, KC_PSCR, \
-  RGB_M_T, _______, _______, _______, _______, AG_SWAP, AG_NORM, RGB_TOG, RGB_HUI, RGB_VAI, RGB_SAI, QWERTY, \
+  _______, _______, _______, _______, _______, AG_SWAP, AG_NORM, RGB_TOG, RGB_HUI, RGB_VAI, RGB_SAI, QWERTY, \
   _______, _______, _______, _______, _______, _______, _______, RGB_MOD, RGB_HUD, RGB_VAD, RGB_SAD, COLEMAK, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 )
 
 
 };
+
+#ifdef AUDIO_ENABLE
+float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
+float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
+float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
+#endif
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);

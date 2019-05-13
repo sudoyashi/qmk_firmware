@@ -1,1 +1,3 @@
 TAP_DANCE_ENABLE = yes
+BACKLIGHT_ENABLE = yes
+USE_I2C = no

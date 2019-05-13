@@ -16,6 +16,7 @@
 */
 #include QMK_KEYBOARD_H
 #include <sendstring_colemak.h>
+#include "muse.h"
 
 extern keymap_config_t keymap_config;
 
@@ -94,8 +95,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_LOWER] = LAYOUT_planck_grid(
     KC_TILD,   KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_MINUS, KC_EQUAL, KC_BSPC,
-    KC_VOLD,   KC_VOLU, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSTP, KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, _______,  KC_PIPE,
-    KC_LSHIFT, _______, M_EMAIL, TD(CPPS), _______, _______, KC_LABK, KC_RABK, KC_LCBR, KC_RCBR, _______,  _______,
+    KC_ESC,    KC_VOLU, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSTP, KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, _______,  KC_PIPE,
+    KC_LSHIFT, KC_VOLD, M_EMAIL, TD(CPPS), _______, _______, KC_LABK, KC_RABK, KC_LCBR, KC_RCBR, _______,  _______,
     _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
 ),
 
@@ -131,10 +132,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_ADJUST] = LAYOUT_planck_grid(
-    RESET,  _______,  DEBUG,   _______, _______, _______, KC_PSCREEN, _______, _______,  _______, _______, KC_DEL ,
-    AU_ON,  MU_TOG,  MU_MOD,  _______, _______,  AG_NORM, AG_SWAP,    QWERTY,  COLEMAK,  _______, _______, _______,
-    AU_OFF, MUV_DE,   MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,     TERM_ON, TERM_OFF, _______, _______, _______,
-    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    RESET,   _______, DEBUG,   _______, _______, _______, KC_PSCREEN, _______, _______,  _______, _______, KC_DEL ,
+    AU_ON,   MU_TOG,  MU_MOD,  _______, _______,  AG_NORM,AG_SWAP,   QWERTY,  COLEMAK,  _______, _______, _______,
+    AU_OFF,  MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,    TERM_ON, TERM_OFF, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______
 )
 
 };
@@ -189,12 +190,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void encoder_update(bool clockwise) {
-  if (clockwise) {
-    register_code(KC_VOLU);
-    unregister_code(KC_VOLU);
-  } else {
-    register_code(KC_VOLD);
-    unregister_code(KC_VOLD);
+bool muse_mode = false;
+uint8_t last_muse_note = 0;
+uint16_t muse_counter = 0;
+uint8_t muse_offset = 70;
+uint16_t muse_tempo = 50;
+
+void encoder_update_user(uint8_t index, bool clockwise) {
+  if (index == 0) { /* First encoder */
+    if (clockwise) {
+      tap_code(KC_UP);
+    } else {
+      tap_code(KC_DOWN);
+    }
   }
 }
