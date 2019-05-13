@@ -2,14 +2,12 @@
 
 extern keymap_config_t keymap_config;
 
+#define _QWERTY 0
+#define _COLEMAK 1
+#define _LOWER 3
+#define _RAISE 4
+#define _ADJUST 16
 
-enum layers {
-  _COLEMAK,
-  _QWERTY,
-  _LOWER,
-  _RAISE,
-  _ADJUST
-};
 enum custom_keycodes {
   COLEMAK = SAFE_RANGE,
   QWERTY,
@@ -21,8 +19,8 @@ enum custom_keycodes {
   M_EMAIL
 };
 
-
 #include "tap.h"
+
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define ADJUST MO(_ADJUST)
@@ -47,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TD(ENT_ESC),  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    TD(CT_SCLN), KC_BSPC, \
     KC_TAB,       KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,        KC_QUOT, \
     KC_LSFT,      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,     KC_ENT , \
-    TD(CT_FULL),      KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  KC_SPC,  KC_SPC,  RAISE,   KC_AT,   KC_MINS,     ADJUST \
+    TD(CT_FULL),  KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  KC_SPC,  KC_SPC,  RAISE,   KC_AT,   KC_MINS,     ADJUST \
   ),
 
   /* Qwerty
@@ -84,10 +82,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_LOWER] = LAYOUT_ortho_4x12( \
-  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_MINUS, KC_EQUAL, KC_BSPC, \
-  KC_VOLD, KC_VOLU, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSTP, _______, _______, KC_MINS, KC_EQL, _______, KC_PIPE, \
-  _______, _______, _______, _______, _______, _______, _______, KC_LABK, KC_RABK, KC_LCBR, KC_RCBR, _______, \
-  _______, KC_F4,   KC_LALT, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+  KC_TILD,   KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_MINUS,KC_EQUAL, KC_BSPC, \
+  KC_ESC,    KC_VOLU, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSTP, KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, _______,  KC_BSLS,
+  KC_LSHIFT, KC_VOLD, M_EMAIL, _______, _______, _______, KC_LABK, KC_RABK, KC_LCBR, KC_RCBR, _______,  _______,
+  _______,   KC_F4,   KC_LALT, _______, _______, _______, _______, _______, _______, _______, _______,  _______
 ),
 
 /* Raise
@@ -106,8 +104,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_ortho_4x12( \
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
   KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, KC_HOME, KC_END,  KC_PGUP, KC_PGDN, \
-  _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______ ,KC_LEFT, KC_DOWN,  KC_UP,   KC_RIGHT, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______ \
+  KC_LSHIFT, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_LEFT, KC_DOWN,  KC_UP,  KC_RIGHT, \
+  BL_STEP, BL_OFF,  BL_DEC,  BL_INC,  _______, _______, _______, _______, _______, _______, _______, _______ \
 ),
 
 
@@ -123,14 +121,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] =  LAYOUT_ortho_4x12( \
-  RESET,   _______, _______, _______, _______, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, KC_DEL, \
-  RGB_M_T, _______, _______, _______, _______, AG_SWAP, AG_NORM, RGB_TOG, RGB_HUI, RGB_VAI, RGB_SAI, QWERTY, \
+  RESET,   _______, _______, _______, _______, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, KC_PSCR, \
+  _______, _______, _______, _______, _______, AG_SWAP, AG_NORM, RGB_TOG, RGB_HUI, RGB_VAI, RGB_SAI, QWERTY, \
   _______, _______, _______, _______, _______, _______, _______, RGB_MOD, RGB_HUD, RGB_VAD, RGB_SAD, COLEMAK, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 )
 
 
 };
+
+#ifdef AUDIO_ENABLE
+float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
+float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
+float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
+#endif
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -179,6 +183,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-  }
+
+      // MACRO -- Ctrl + C, only for windows
+      case COPY:
+        if (record->event.pressed) {
+          //Event happens when COPY_PASTE IS PRESSED
+          SEND_STRING(SS_LCTRL("c"));
+          } else {  //Event happens when COPY IS RELEASED
+            }
+        break;
+
+      // MACRO -- Ctrl + V, only for windows
+      case PASTE:
+        if (record->event.pressed) {
+          //Event happens when COPY_PASTE IS PRESSED
+          SEND_STRING(SS_LCTRL("v"));
+          } else {
+            }
+        break;
+
+      // MACRO -- write down email
+      case M_EMAIL:
+        if (record->event.pressed) {
+          SEND_STRING("joshuapdhawaii@gmail.com");
+          } else {
+            }
+      break;
+    }
   return true;
 }
