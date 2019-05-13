@@ -1,22 +1,9 @@
-/* Copyright 2015-2017 Jack Humbert
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
-*/
+// Planck keymap, sudoyashi
+
 #include QMK_KEYBOARD_H
 #include "muse.h"
-;
+#include "tap.h"
+
 extern keymap_config_t keymap_config;
 
 enum layers {
@@ -28,14 +15,12 @@ enum layers {
 };
 
 enum keycodes {
-  COLEMAK = SAFE_RANGE,
   QWERTY,
+  COLEMAK = SAFE_RANGE,
   COPY,
   PASTE,
   M_EMAIL
 };
-
-#include "tap.h"
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
@@ -159,7 +144,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-
+      /*
     // MACRO -- Ctrl + C, only for windows
     case COPY:
       if (record->event.pressed) {
@@ -185,7 +170,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           }
     break;
+  */
   }
+
   return true;
 }
 
@@ -195,12 +182,41 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-void encoder_update_user(uint8_t index, bool clockwise) {
-  if (index == 0) { /* First encoder */
-    if (clockwise) {
+
+void encoder_update(bool clockwise) {
+  if (clockwise) {
       tap_code(KC_UP);
     } else {
       tap_code(KC_DOWN);
-    }
+      }
   }
+/*
+  } else if (IS_LAYER_ON(_RAISE)) {
+    if (clockwise) {
+      #ifdef MOUSEKEY_ENABLE
+        register_code(KC_MS_WH_DOWN);
+        unregister_code(KC_MS_WH_DOWN);
+      #else
+        register_code(KC_PGDN);
+        unregister_code(KC_PGDN);
+      #endif
+    } else {
+      #ifdef MOUSEKEY_ENABLE
+        register_code(KC_MS_WH_UP);
+        unregister_code(KC_MS_WH_UP);
+      #else
+        register_code(KC_PGUP);
+        unregister_code(KC_PGUP);
+      #endif
+      }
+    }
 }
+
+
+  // Volume (work in progress)
+  } else if (IS_LAYER_ON(_LOWER)) {
+    if (clockwise) {
+      tap_code(KC_VOLU);
+    } else { tap_code(KC_VOLD);
+      }
+*/
