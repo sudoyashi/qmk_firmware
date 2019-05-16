@@ -288,8 +288,8 @@ void encoder_update(bool clockwise) {
         register_code(KC_PGUP);
         unregister_code(KC_PGUP);
       #endif
+      }
     }
-  }
 }
 
 void dip_update(uint8_t index, bool active) {
