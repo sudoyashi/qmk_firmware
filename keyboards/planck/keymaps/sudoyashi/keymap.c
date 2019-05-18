@@ -184,28 +184,29 @@ uint16_t muse_tempo = 50;
 
 
 void encoder_update_user(uint8_t index, bool clockwise) {
+
+  if (clockwise) {
+    tap_code(KC_UP);
+  }
+  else { tap_code(KC_DOWN);
+  }
+
   if (IS_LAYER_ON(_LOWER)) {
       if (clockwise) {
-        tap_code(KC_F3);
+        tap_code(KC_BRIU);
       }
-     else { tap_code(KC_F2);
+     else { tap_code(KC_BRID);
       }
   }
 
   if (IS_LAYER_ON(_RAISE)) {
         if (clockwise) {
-      tap_code(KC_UP);
+      tap_code(KC_VOLU);
     } else {
-      tap_code(KC_DOWN);
+      tap_code(KC_VOLD);
     }
   }
 
-  if (IS_LAYER_ON(_COLEMAK)) {
-    if (clockwise) {
-      tap_code(KC__VOLDOWN);
-    }
-    else { tap_code(KC__VOLUP);
-    }
-  }
+
 
 }
