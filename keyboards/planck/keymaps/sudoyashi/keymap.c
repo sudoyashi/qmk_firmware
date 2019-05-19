@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,     KC_9,   KC_0,    KC_BSPC,
     KC_DEL,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, KC_HOME, KC_END,  KC_PGUP, KC_PGDN,
     KC_LSHIFT,KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,
-    BL_STEP,  BL_OFF,  BL_DEC,  BL_INC,  _______, _______, _______, _______, _______, _______, _______, _______
+    BL_STEP,  BL_OFF,  BL_DEC,  BL_INC,  _______, _______, _______, _______, _______, KC_BRID, KC_BRID, _______
 ),
 
 /* Adjust (Lower + Raise)
@@ -143,7 +143,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-      /*
+
     // MACRO -- Ctrl + C, only for windows
     case COPY:
       if (record->event.pressed) {
@@ -161,7 +161,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           }
       break;
-  */
+
 
     // MACRO -- write down email
     case M_EMAIL:
@@ -183,40 +183,30 @@ uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
 
-void encoder_update(bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
+
   if (clockwise) {
-      tap_code(KC_UP);
-    } else {
-      tap_code(KC_DOWN);
+    tap_code(KC_UP);
+  }
+  else { tap_code(KC_DOWN);
+  }
+
+  if (IS_LAYER_ON(_LOWER)) {
+      if (clockwise) {
+        tap_code(KC_BRIU);
+      }
+     else { tap_code(KC_BRID);
       }
   }
-/*
-  } else if (IS_LAYER_ON(_RAISE)) {
-    if (clockwise) {
-      #ifdef MOUSEKEY_ENABLE
-        register_code(KC_MS_WH_DOWN);
-        unregister_code(KC_MS_WH_DOWN);
-      #else
-        register_code(KC_PGDN);
-        unregister_code(KC_PGDN);
-      #endif
-    } else {
-      #ifdef MOUSEKEY_ENABLE
-        register_code(KC_MS_WH_UP);
-        unregister_code(KC_MS_WH_UP);
-      #else
-        register_code(KC_PGUP);
-        unregister_code(KC_PGUP);
-      #endif
-      }
-    }
-}
 
-
-  // Volume (work in progress)
-  } else if (IS_LAYER_ON(_LOWER)) {
-    if (clockwise) {
+  if (IS_LAYER_ON(_RAISE)) {
+        if (clockwise) {
       tap_code(KC_VOLU);
-    } else { tap_code(KC_VOLD);
-      }
-*/
+    } else {
+      tap_code(KC_VOLD);
+    }
+  }
+
+
+
+}
