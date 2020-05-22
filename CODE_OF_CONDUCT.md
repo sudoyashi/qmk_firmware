@@ -13,3 +13,4 @@ Our users, contributors, and collaborators are expected to treat each other with
 * Other conduct which could reasonably be considered inappropriate in a professional setting
 
 If someone is violating this Code of Conduct you may email hello@qmk.fm to bring your concern to the Members. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. 
+
